@@ -18,13 +18,52 @@
     }
 
     .container {
-      max-width: 800px;
+      display: flex;
+      max-width: 1200px;
       margin: 50px auto;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
+    }
+
+    .sidebar {
+      flex: 0 0 250px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .sidebar li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar li p {
+      margin-bottom: 10px;
+    }
+
+    .sidebar li p.question {
+      font-weight: bold;
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
     }
 
     header {
@@ -165,9 +204,21 @@
     /* Responsive design for smaller screens */
     @media screen and (max-width: 600px) {
       .container {
+        flex-direction: column;
         max-width: 90%;
         margin: 30px auto;
-        padding: 10px;
+      }
+
+      .sidebar {
+        flex: 0 0 auto;
+        width: 100%;
+        border-radius: 10px 10px 0 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .content {
+        flex: 1;
+        border-radius: 0 0 10px 10px;
       }
 
       h1 {
@@ -191,18 +242,44 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1><i class="fas fa-vitamin"></i> Vitamin B12 Chatbot</h1>
-      <p>Have questions about Vitamin B12? Let our chatbot assist you!</p>
-    </header>
-    <button id="chatbotButton">Launch Chatbot</button>
-    <div class="loading">Loading...</div>
-    <iframe id="chatbotFrame" allow="microphone;" src=""></iframe>
+    <div class="sidebar">
+      <h2>Common Questions</h2>
+      <ul id="carousel">
+        <li><p class="question">What is Vitamin B12 deficiency?</p></li>
+        <li><p class="question">What are the symptoms of Vitamin B12 deficiency?</p></li>
+        <li><p class="question">How is Vitamin B12 deficiency diagnosed?</p></li>
+        <li><p class="question">What are the sources of Vitamin B12?</p></li>
+        <li><p class="question">Can Vitamin B12 supplements help?</p></li>
+      </ul>
+    </div>
+    <div class="content">
+      <header>
+        <h1><i class="fas fa-vitamin"></i> Vitamin B12 Chatbot</h1>
+        <p>Have questions about Vitamin B12? Let our chatbot assist you!</p>
+      </header>
+      <button id="chatbotButton">Launch Chatbot</button>
+      <div class="loading">Loading...</div>
+      <iframe id="chatbotFrame" allow="microphone;" src=""></iframe>
+    </div>
   </div>
 
   <script>
+    const questions = document.querySelectorAll('.question');
+    const carousel = document.getElementById('carousel');
+
+    let currentQuestionIndex = 0;
+
+    function showNextQuestion() {
+      questions[currentQuestionIndex].classList.remove('active');
+      currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+      questions[currentQuestionIndex].classList.add('active');
+    }
+
+    setInterval(showNextQuestion, 3000); // Change question every 3 seconds
+
     document.getElementById('chatbotButton').addEventListener('click', function() {
-      document.getElementById('chatbotFrame').src = "https://console.dialogflow.com/api-client/demo/embedded/1e23efa3-be1b-4b2b-bc2d-9aef19d2284e";
+      const questionText = questions[currentQuestionIndex].textContent;
+      document.getElementById('chatbotFrame').src = `https://console.dialogflow.com/api-client/demo/embedded/1e23efa3-be1b-4b2b-bc2d-9aef19d2284e?q=${encodeURIComponent(questionText)}`;
       document.querySelector('.loading').style.display = 'block';
     });
 
