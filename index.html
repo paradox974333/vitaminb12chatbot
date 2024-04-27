@@ -5,239 +5,188 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vitamin B12 Chatbot</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Open Sans', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #f8f9fa, #d9e9ff);
-      color: #333;
-    }
+   body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  color: #333;
+}
 
-    .container {
-      display: flex;
-      max-width: 1200px;
-      margin: 50px auto;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px; /* Adjust max-width for larger screens */
+  margin: 30px auto;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: hidden;
+}
 
-    .sidebar {
-      flex: 0 0 250px;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-    }
+.sidebar {
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  background-color: #ff9f1c;
+  color: #fff;
+}
 
-    .sidebar h2 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
+.sidebar h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-    .sidebar ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      overflow: hidden;
-    }
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-    .sidebar li {
-      margin-bottom: 10px;
-    }
+.sidebar li {
+  margin-bottom: 10px;
+}
 
-    .sidebar li p {
-      margin-bottom: 10px;
-    }
+.sidebar li p {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
 
-    .sidebar li p.question {
-      font-weight: bold;
-    }
+.sidebar li p.question {
+  font-weight: bold;
+}
 
-    .content {
-      flex: 1;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
+.content {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+}
 
-    header {
-      font-family: 'Montserrat', sans-serif;
-      text-align: center;
-      margin-bottom: 40px;
-      padding: 40px 20px;
-      border-radius: 10px;
-      background: linear-gradient(to bottom right, #007bff, #0056b3);
-      color: #fff;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-      animation: headerAnimation 1s ease-in-out;
-    }
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  border-radius: 20px;
+  background: linear-gradient(to bottom right, #14b1ab, #20a3a2);
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
 
-    @keyframes headerAnimation {
-      0% {
-        transform: translateY(-100%);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
+h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
 
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.1);
-      z-index: 1;
-    }
+p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  position: relative;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      position: relative;
-      z-index: 2;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    }
+button, .about-button {
+  display: block;
+  margin: 5px auto;
+  padding: 18px 36px;
+  background-color: #14b1ab;
+  color: #fff;
+  border: 2px solid #14b1ab;
+  border-radius: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
 
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 2;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    }
+button:hover, .about-button:hover {
+  background-color: transparent;
+  color: #14b1ab;
+}
 
-    button {
-      display: block;
-      margin: 0 auto 40px;
-      padding: 18px 36px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 25px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-      animation: buttonAnimation 1s ease-in-out;
-    }
+iframe {
+  display: block;
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-    @keyframes buttonAnimation {
-      0% {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+.loading {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #14b1ab;
+}
 
-    button:hover {
-      background-color: #0056b3;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    }
+.loading::after {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 4px solid #14b1ab;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
 
-    iframe {
-      display: block;
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      animation: iframeAnimation 1s ease-in-out;
-    }
+/* Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
-    @keyframes iframeAnimation {
-      0% {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-      100% {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
+/* Responsive design */
+@media screen and (min-width: 600px) {
+  .container {
+    flex-direction: row;
+    max-width: 90%; /* Adjust max-width for larger screens */
+  }
 
-    .loading {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      color: #007bff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    }
+  .sidebar {
+    flex: 0 0 250px;
+    margin-bottom: 0;
+  }
 
-    .loading::after {
-      content: "";
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 4px solid #007bff;
-      border-top-color: transparent;
-      animation: spin 1s linear infinite;
-      margin-left: 10px;
-    }
+  .content {
+    flex: 1;
+    margin-left: 20px;
+  }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+  header {
+    margin-bottom: 0;
+  }
+}
 
-    /* Responsive design for smaller screens */
-    @media screen and (max-width: 600px) {
-      .container {
-        flex-direction: column;
-        max-width: 90%;
-        margin: 30px auto;
-      }
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 95%; /* Adjust max-width for larger screens */
+  }
+}
 
-      .sidebar {
-        flex: 0 0 auto;
-        width: 100%;
-        border-radius: 10px 10px 0 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 1100px; /* Adjust max-width for larger screens */
+  }
+}
 
-      .content {
-        flex: 1;
-        border-radius: 0 0 10px 10px;
-      }
-
-      h1 {
-        font-size: 36px;
-      }
-
-      p {
-        font-size: 16px;
-      }
-
-      button {
-        font-size: 18px;
-        padding: 14px 28px;
-      }
-
-      iframe {
-        height: 400px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -245,7 +194,7 @@
     <div class="sidebar">
       <h2>Common Questions</h2>
       <ul id="carousel">
-        <li><p class="question">What is Vitamin B12 deficiency?</p></li>
+        <li><p class="question active">What is Vitamin B12 deficiency?</p></li>
         <li><p class="question">What are the symptoms of Vitamin B12 deficiency?</p></li>
         <li><p class="question">How is Vitamin B12 deficiency diagnosed?</p></li>
         <li><p class="question">What are the sources of Vitamin B12?</p></li>
@@ -259,7 +208,8 @@
       </header>
       <button id="chatbotButton">Launch Chatbot</button>
       <div class="loading">Loading...</div>
-      <iframe id="chatbotFrame" allow="microphone;" src=""></iframe>
+      <iframe id="chatbotFrame" title="Chatbot Frame" allow="microphone;" src=""></iframe>
+      <a href="about.html" class="about-button">About</a>
     </div>
   </div>
 
