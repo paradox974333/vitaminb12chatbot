@@ -94,8 +94,8 @@ p {
 }
 
 button, .about-button {
-  display: block;
-  margin: 5px auto;
+  display: inline-block; /* or inline-flex */
+  margin: 5px; /* Adjust margin as needed */
   padding: 18px 36px;
   background-color: #14b1ab;
   color: #fff;
@@ -205,11 +205,13 @@ iframe {
       <header>
         <h1><i class="fas fa-vitamin"></i> Vitamin B12 Chatbot</h1>
         <p>Have questions about Vitamin B12? Let our chatbot assist you!</p>
+        <div>
+          <button id="chatbotButton">Launch Chatbot</button>
+          <a href="about.html" class="about-button">About</a>
+        </div>
       </header>
-      <button id="chatbotButton">Launch Chatbot</button>
       <div class="loading">Loading...</div>
       <iframe id="chatbotFrame" title="Chatbot Frame" allow="microphone;" src=""></iframe>
-      <a href="about.html" class="about-button">About</a>
     </div>
   </div>
 
